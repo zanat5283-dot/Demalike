@@ -3,214 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Demalike Center | Edu System</title>
+    <title>Demalike Center</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #1e3a8a; /* Глубокий синий из Инстаграм */
-            --accent: #facc15;  /* Фирменный желтый */
-            --orange: #f97316;
-            --red: #ef4444;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text: #0f172a;
+        :root { 
+            --primary: #1e3a8a; --accent: #facc15; --bg: #f8fafc; --text: #0f172a;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--bg); margin: 0; color: var(--text); }
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg);
-            margin: 0;
-            color: var(--text);
-            line-height: 1.5;
-        }
+        header { background: var(--primary); padding: 25px 15px; text-align: center; border-radius: 0 0 25px 25px; }
+        .logo-text { font-weight: 900; font-size: 1.6rem; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* ШАПКА В СТИЛЕ БРЕНДА */
-        header {
-            background: var(--primary);
-            padding: 30px 15px;
-            text-align: center;
-            border-radius: 0 0 30px 30px;
-            box-shadow: 0 10px 25px rgba(30, 58, 138, 0.2);
-        }
+        nav { display: flex; justify-content: center; gap: 8px; padding: 15px; position: sticky; top: 0; z-index: 1000; background: rgba(248, 250, 252, 0.9); backdrop-filter: blur(10px); }
+        nav button { background: white; color: var(--primary); border: 2px solid var(--primary); padding: 8px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; cursor: pointer; text-transform: uppercase; }
+        nav button.active { background: var(--primary); color: white; }
 
-        .logo-text {
-            font-weight: 900;
-            font-size: 1.8rem;
-            color: #ffffff;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .logo-dot { color: var(--accent); }
-
-        /* НАВИГАЦИЯ (Instagram Style) */
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            padding: 15px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(248, 250, 252, 0.8);
-            backdrop-filter: blur(10px);
-        }
-
-        nav button {
-            background: white;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-            padding: 10px 15px;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
-        }
-
-        nav button.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 5px 15px rgba(30, 58, 138, 0.3);
-        }
-
-        .container { max-width: 500px; margin: 0 auto; padding: 10px 15px 50px; }
-
-        .page { display: none; animation: slideUp 0.4s ease-out; }
+        .container { max-width: 450px; margin: 0 auto; padding: 10px 15px; }
+        .page { display: none; }
         .page.active { display: block; }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 15px; }
+        h2 { color: var(--primary); text-align: center; font-size: 1.2rem; font-weight: 800; }
+
+        input, select, textarea { width: 100%; padding: 14px; margin: 8px 0; border-radius: 12px; border: 1px solid #cbd5e1; font-size: 1rem; font-family: inherit; outline: none; }
+
+        /* ИСПРАВЛЕННЫЙ БЛОК ВЫБОРА КУРСОВ */
+        .course-selection {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
         }
 
-        /* КАРТОЧКИ */
-        .card {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-            margin-bottom: 20px;
-            border: 1px solid rgba(226, 232, 240, 0.8);
-        }
-
-        h2 {
-            color: var(--primary);
-            text-align: center;
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            font-weight: 800;
-        }
-
-        /* ПОЛЯ ВВОДА */
-        input, select, textarea {
-            width: 100%;
-            padding: 16px;
-            margin: 10px 0;
-            border-radius: 15px;
-            border: 2px solid #e2e8f0;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: 0.3s;
-            outline: none;
-        }
-
-        input:focus { border-color: var(--primary); background: #f0f7ff; }
-
-        /* КНОПКИ */
-        .btn {
-            width: 100%;
-            padding: 18px;
-            border-radius: 18px;
-            border: none;
-            font-weight: 800;
-            font-size: 0.9rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: 0.3s;
+        .course-chip {
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            padding: 12px 5px;
+            background: #f1f5f9;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
         }
 
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:active { transform: scale(0.98); }
+        .course-chip input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
 
+        .course-chip span {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Стиль когда выбрано */
+        .course-chip.active {
+            background: #eff6ff;
+            border-color: var(--primary);
+        }
+        
+        .course-chip.active span {
+            color: var(--primary);
+        }
+
+        .btn { width: 100%; padding: 16px; border-radius: 15px; border: none; font-weight: 800; font-size: 0.85rem; cursor: pointer; text-transform: uppercase; margin-top: 10px; }
+        .btn-primary { background: var(--primary); color: white; }
         .btn-accent { background: var(--accent); color: var(--primary); }
 
-        .btn-video {
-            background: #ecfdf5;
-            color: #059669;
-            border: 1px solid #10b981;
-            margin-top: 15px;
-            font-size: 0.8rem;
-        }
-
-        /* БЛОКИ ПРЕДМЕТОВ */
-        .subject-card {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 20px;
-            margin-top: 15px;
-            border-left: 8px solid var(--accent);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-        }
-
-        .subject-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .subject-name { font-weight: 800; color: var(--primary); text-transform: uppercase; font-size: 0.9rem; }
-
-        .badge {
-            background: var(--primary);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin: 3px;
-            display: inline-block;
-        }
-
-        .hw-container {
-            background: #fffbeb;
-            border-radius: 12px;
-            padding: 12px;
-            margin-top: 12px;
-            font-size: 0.85rem;
-            color: #92400e;
-            border: 1px dashed var(--accent);
-        }
-
-        .teacher-badge {
-            background: #eef2ff;
-            color: var(--primary);
-            padding: 10px;
-            border-radius: 12px;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 15px;
-            font-size: 0.8rem;
-        }
-
-        .del-btn { color: var(--red); font-weight: 700; font-size: 0.7rem; cursor: pointer; opacity: 0.6; }
-
+        .child-form { border: 2px dashed #e2e8f0; padding: 15px; border-radius: 15px; margin-bottom: 15px; position: relative; }
+        
+        .subject-card { background: white; border-radius: 15px; padding: 15px; margin-top: 10px; border-left: 5px solid var(--accent); box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .grade-badge { background: var(--primary); color: white; padding: 4px 10px; border-radius: 8px; font-weight: 700; margin-right: 5px; display: inline-block; margin-top: 5px; }
+        .hw-box { background: #fffbeb; border-radius: 8px; padding: 10px; margin-top: 10px; font-size: 0.8rem; border: 1px solid #fef3c7; }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="logo-text">Demalike<span class="logo-dot">.</span>Center</div>
-</header>
+<header><div class="logo-text">Demalike Center</div></header>
 
 <nav>
     <button onclick="showPage('home')" id="btn-home" class="active">Запись</button>
@@ -226,45 +102,44 @@
             <input type="text" id="parentName" placeholder="ФИО Родителя">
             <input type="tel" id="parentPhone" placeholder="Номер телефона">
             <div id="childrenFields"></div>
-            <button class="btn" style="background:#f1f5f9; color:var(--primary); margin-bottom:10px" onclick="addChildForm()">+ Добавить ребенка</button>
+            <button class="btn" style="background:#e2e8f0; color:var(--primary)" onclick="addChildForm()">+ Добавить ребенка</button>
             <button class="btn btn-accent" onclick="submitRegistration()">Зарегистрироваться</button>
         </div>
     </div>
 
     <div id="parent" class="page">
         <div class="card">
-            <h2>Мой кабинет</h2>
-            <input type="tel" id="loginPhone" placeholder="Введите номер телефона">
-            <button class="btn btn-primary" onclick="accessParentCabinet()">Показать успехи</button>
+            <h2>Личный кабинет</h2>
+            <input type="tel" id="loginPhone" placeholder="Номер телефона">
+            <button class="btn btn-primary" onclick="accessParentCabinet()">Войти</button>
         </div>
         <div id="parentResults"></div>
     </div>
 
     <div id="teacher" class="page">
         <div class="card" id="authSection">
-            <h2>Вход для профи</h2>
+            <h2>Вход</h2>
             <select id="teacherRole">
-                <option value="" disabled selected>Выберите ваш курс</option>
+                <option value="" disabled selected>Выберите предмет</option>
                 <option value="Продленка">Продленка</option>
                 <option value="Робототехника">Робототехника</option>
-                <option value="English">English Space</option>
-                <option value="Подготовка">Подготовка к школе</option>
+                <option value="English">English</option>
+                <option value="Подготовка">Подготовка</option>
             </select>
             <input type="password" id="pass" placeholder="Пароль">
-            <button class="btn btn-primary" onclick="checkAuth()">Войти в систему</button>
+            <button class="btn btn-primary" onclick="checkAuth()">Войти</button>
         </div>
-
         <div id="adminPanel" style="display:none;">
-            <div id="currentTeacherTitle" class="teacher-badge"></div>
+            <div id="currentTeacherTitle" style="text-align:center; font-weight:bold; margin-bottom:10px;"></div>
             <div id="allStudents"></div>
-            <button class="btn" style="background:none; color:var(--red); font-size:0.7rem" onclick="location.reload()">Выйти из профиля</button>
+            <button class="btn" onclick="location.reload()">Выйти</button>
         </div>
     </div>
 
 </div>
 
 <script>
-    const dbName = 'demalike_db_v3';
+    const dbName = 'demalike_v4';
     const getDB = () => JSON.parse(localStorage.getItem(dbName) || '[]');
     const saveDB = (data) => localStorage.setItem(dbName, JSON.stringify(data));
     let activeRole = "";
@@ -276,152 +151,131 @@
         document.getElementById('btn-' + id).classList.add('active');
     }
 
+    // Добавление формы ребенка с исправленными кнопками курсов
     function addChildForm() {
         const div = document.createElement('div');
-        div.className = 'card'; div.style = "border: 2px dashed #e2e8f0; margin-top:10px;";
+        div.className = 'child-form';
         div.innerHTML = `
-            <div style="display:flex; justify-content:space-between">
-                <span style="font-weight:800; font-size:0.8rem">Ребенок</span>
-                <span style="color:red; cursor:pointer" onclick="this.parentElement.parentElement.remove()">✕</span>
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px">
+                <small><b>Ребенок</b></small>
+                <span style="color:red; font-weight:bold; cursor:pointer" onclick="this.parentElement.parentElement.remove()">✕</span>
             </div>
             <input type="text" class="c-name" placeholder="Имя и фамилия">
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px">
-                <label style="font-size:0.7rem; display:flex; gap:5px"><input type="checkbox" value="Продленка"> Продленка</label>
-                <label style="font-size:0.7rem; display:flex; gap:5px"><input type="checkbox" value="Робототехника"> Роботы</label>
-                <label style="font-size:0.7rem; display:flex; gap:5px"><input type="checkbox" value="English"> English</label>
-                <label style="font-size:0.7rem; display:flex; gap:5px"><input type="checkbox" value="Подготовка"> Подготовка</label>
+            <div class="course-selection">
+                <label class="course-chip"><input type="checkbox" value="Продленка" onchange="toggleChip(this)"><span>Продленка</span></label>
+                <label class="course-chip"><input type="checkbox" value="Робототехника" onchange="toggleChip(this)"><span>Роботы</span></label>
+                <label class="course-chip"><input type="checkbox" value="English" onchange="toggleChip(this)"><span>English</span></label>
+                <label class="course-chip"><input type="checkbox" value="Подготовка" onchange="toggleChip(this)"><span>Подготовка</span></label>
             </div>
         `;
         document.getElementById('childrenFields').appendChild(div);
     }
 
+    // Функция для визуального выделения выбранного курса
+    function toggleChip(el) {
+        if(el.checked) el.parentElement.classList.add('active');
+        else el.parentElement.classList.remove('active');
+    }
+
     function submitRegistration() {
-        const pPhone = document.getElementById('parentPhone').value;
-        const childCards = document.querySelectorAll('#childrenFields .card');
-        if (!pPhone || childCards.length === 0) return alert("Заполните данные!");
+        const phone = document.getElementById('parentPhone').value;
+        const cards = document.querySelectorAll('.child-form');
+        if (!phone || !cards.length) return alert("Заполните форму");
 
         const db = getDB();
-        childCards.forEach(card => {
-            const name = card.querySelector('.c-name').value;
-            const courses = Array.from(card.querySelectorAll('input:checked')).map(c => c.value);
-            if (name && courses.length > 0) {
-                db.push({
-                    id: Date.now() + Math.random(),
-                    parentPhone: pPhone,
-                    childName: name,
-                    courses,
-                    grades: {},
-                    homework: {},
-                    videoUrl: {}
-                });
+        cards.forEach(c => {
+            const name = c.querySelector('.c-name').value;
+            const courses = Array.from(c.querySelectorAll('input:checked')).map(i => i.value);
+            if (name && courses.length) {
+                db.push({ id: Date.now()+Math.random(), parentPhone: phone, childName: name, courses, grades: {}, homework: {}, videoUrl: {} });
             }
         });
         saveDB(db);
-        alert("Добро пожаловать в Demalike!");
+        alert("Готово!");
         location.reload();
     }
 
     function accessParentCabinet() {
         const phone = document.getElementById('loginPhone').value;
-        const results = getDB().filter(u => u.parentPhone === phone);
+        const users = getDB().filter(u => u.parentPhone === phone);
         const container = document.getElementById('parentResults');
         container.innerHTML = "";
-        if (!results.length) return alert("Данные не найдены");
+        if (!users.length) return alert("Не найдено");
 
-        results.forEach(s => {
-            let subjectsHTML = "";
-            s.courses.forEach(sub => {
-                const subGrades = s.grades[sub] || [];
-                const subHW = s.homework[sub] || "Заданий пока нет";
-                const subVid = s.videoUrl[sub] ? `<a href="${s.videoUrl[sub]}" target="_blank" class="btn btn-video">Смотреть видео-отчет</a>` : '';
-
-                subjectsHTML += `
+        users.forEach(u => {
+            let html = `<div class="card"><h3>${u.childName}</h3>`;
+            u.courses.forEach(c => {
+                const g = u.grades[c] || [];
+                const h = u.homework[c] || "Нет задания";
+                const v = u.videoUrl[c] ? `<a href="${u.videoUrl[c]}" target="_blank" class="btn" style="background:#4caf50; color:white; text-decoration:none; display:block; text-align:center">Видео отчёт</a>` : '';
+                html += `
                     <div class="subject-card">
-                        <div class="subject-header">
-                            <span class="subject-name">${sub}</span>
-                        </div>
-                        <div>${subGrades.map(g => `<span class="badge">${g}</span>`).join('') || '<small>Оценок нет</small>'}</div>
-                        <div class="hw-container"><b>🏠 ДЗ:</b> ${subHW}</div>
-                        ${subVid}
-                    </div>
-                `;
+                        <div style="font-weight:900; color:var(--primary); font-size:0.8rem; margin-bottom:5px">${c}</div>
+                        <div>${g.map(grade => `<span class="grade-badge">${grade}</span>`).join('')}</div>
+                        <div class="hw-box"><b>ДЗ:</b> ${h}</div>
+                        ${v}
+                    </div>`;
             });
-
-            container.innerHTML += `
-                <div class="card" style="border-top:8px solid var(--primary)">
-                    <h3 style="margin:0; color:var(--primary); font-weight:900">${s.childName}</h3>
-                    ${subjectsHTML}
-                </div>`;
+            html += `</div>`;
+            container.innerHTML += html;
         });
     }
 
     function checkAuth() {
         const role = document.getElementById('teacherRole').value;
-        if (!role || document.getElementById('pass').value !== "777") return alert("Доступ закрыт!");
-        activeRole = role;
-        document.getElementById('authSection').style.display = 'none';
-        document.getElementById('adminPanel').style.display = 'block';
-        document.getElementById('currentTeacherTitle').innerText = "📚 Профиль: " + role;
-        loadAdminData();
+        if (role && document.getElementById('pass').value === "777") {
+            activeRole = role;
+            document.getElementById('authSection').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            document.getElementById('currentTeacherTitle').innerText = "Предмет: " + role;
+            loadAdminData();
+        }
     }
 
     function loadAdminData() {
         const db = getDB();
-        const filtered = db.filter(s => s.courses.includes(activeRole));
         const container = document.getElementById('allStudents');
-        container.innerHTML = filtered.length ? "" : "Учеников нет";
-
-        filtered.forEach(s => {
+        container.innerHTML = "";
+        db.filter(s => s.courses.includes(activeRole)).forEach(s => {
             container.innerHTML += `
-                <div class="card" style="padding:15px; margin-bottom:15px">
-                    <div style="display:flex; justify-content:space-between">
-                        <b style="color:var(--primary)">${s.childName}</b>
-                        <span class="del-btn" onclick="delStudent(${s.id})">Удалить</span>
+                <div class="card">
+                    <div style="display:flex; justify-content:space-between"><b>${s.childName}</b> <span style="color:red" onclick="del(${s.id})">Удалить</span></div>
+                    <div style="display:flex; gap:5px; margin-top:10px">
+                        <input type="text" id="g-${s.id}" placeholder="Оценка" style="margin:0">
+                        <button class="btn btn-primary" style="width:60px; margin:0" onclick="addG(${s.id})">ОК</button>
                     </div>
-                    <div style="display:flex; gap:5px; margin:10px 0">
-                        <input type="text" id="g-${s.id}" placeholder="Оценка" style="margin:0; flex:1; padding:10px">
-                        <button class="btn btn-primary" style="width:60px; padding:0; border-radius:12px" onclick="addGrade(${s.id})">ОК</button>
-                    </div>
-                    <textarea id="h-${s.id}" placeholder="ДЗ по предмету...">${s.homework[activeRole] || ""}</textarea>
-                    <input type="text" id="v-${s.id}" placeholder="Ссылка на видео" value="${s.videoUrl[activeRole] || ""}" style="font-size:0.8rem; padding:10px">
-                    <button class="btn btn-accent" style="padding:12px; font-size:0.75rem" onclick="saveData(${s.id})">Обновить данные</button>
+                    <textarea id="h-${s.id}" placeholder="Домашнее задание">${s.homework[activeRole] || ""}</textarea>
+                    <input type="text" id="v-${s.id}" placeholder="Ссылка на видео" value="${s.videoUrl[activeRole] || ""}">
+                    <button class="btn btn-accent" onclick="save(${s.id})">Сохранить</button>
                 </div>`;
         });
     }
 
-    function addGrade(id) {
+    function addG(id) {
+        const db = getDB();
+        const i = db.findIndex(s => s.id == id);
         const val = document.getElementById('g-'+id).value;
-        if (!val) return;
-        const db = getDB();
-        const idx = db.findIndex(s => s.id == id);
-        if (!db[idx].grades[activeRole]) db[idx].grades[activeRole] = [];
-        db[idx].grades[activeRole].push(val);
-        saveDB(db);
-        loadAdminData();
+        if (!db[i].grades[activeRole]) db[i].grades[activeRole] = [];
+        db[i].grades[activeRole].push(val);
+        saveDB(db); loadAdminData();
     }
 
-    function saveData(id) {
-        const hw = document.getElementById('h-'+id).value;
-        const vid = document.getElementById('v-'+id).value;
+    function save(id) {
         const db = getDB();
-        const idx = db.findIndex(s => s.id == id);
-        db[idx].homework[activeRole] = hw;
-        db[idx].videoUrl[activeRole] = vid;
-        saveDB(db);
-        alert("Данные сохранены!");
-        loadAdminData();
+        const i = db.findIndex(s => s.id == id);
+        db[i].homework[activeRole] = document.getElementById('h-'+id).value;
+        db[i].videoUrl[activeRole] = document.getElementById('v-'+id).value;
+        saveDB(db); alert("Сохранено");
     }
 
-    function delStudent(id) {
-        if (confirm("Удалить ученика?")) {
-            const db = getDB().filter(s => s.id != id);
-            saveDB(db);
+    function del(id) {
+        if(confirm("Удалить?")) {
+            saveDB(getDB().filter(s => s.id != id));
             loadAdminData();
         }
     }
 
     window.onload = addChildForm;
 </script>
-
 </body>
 </html>
